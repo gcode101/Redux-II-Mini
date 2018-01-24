@@ -1,5 +1,5 @@
 // we'll need axios
-import axios from 'aios';
+import axios from 'axios';
 // we'll need to create 3 different action types here.
 // one for fetching, one for fetched and one for errors
 export const FETCHING_CHARS = 'FETCHING_CHARS';
@@ -16,9 +16,11 @@ export const getChars = () => {
 		dispatch({ type: FETCHING_CHARS });
 		chars
 			.then(({ data }) => {
-
-				dispatch({ type: CHARS_RECEIVED, payload: data.message });
+				console.log('****data****', data)
+				dispatch({ type: CHARS_RECEIVED, payload: data.results });
 			})
-			.catch({ type: ERROR_FETCHING_CHARS, payload: err});
+			.catch(err => {
+				dispatch({ type: ERROR_FETCHING_CHARS, payload: err});
+			});
 	};
 }
